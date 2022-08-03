@@ -22,4 +22,4 @@ bot = PyCordBot(intents=intents, debug_guilds=['674061350309330944'])
 bot.load_extension('cogs.rolemenu')
 
 # Run the bot using its token
-bot.run(bot.config['BOT']['token'])
+bot.run(bot.token)

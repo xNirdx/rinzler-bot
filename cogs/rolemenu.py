@@ -1,10 +1,9 @@
 # Imports
-import discord
 import discord.ext.commands
 import configparser
 
-# Set the path to the config file
-CONFIG_PATH = '../config.ini'
+from discord import slash_command
+from views.rolemenu import category_select
 
 
 # RoleMenu cog for handling the role menu
@@ -15,17 +14,20 @@ class RoleMenu(discord.ext.commands.Cog):
 
         # Set our config file and read it
         self.config = configparser.ConfigParser()
-        self.config.read(CONFIG_PATH)
+        self.config.read('config.ini')
 
     # Slash command to add a role to the role menu
-    @discord.slash_command(guild_ids=['674061350309330944'])
-    async def add_role(self, ctx, role: discord.SlashCommandOptionType.role):
+    @slash_command(guild_ids=['674061350309330944'])
+    async def add_role(self, ctx, role: discord.Option(discord.Role)):
         """Say hello!"""
 
-        converter = discord.ext.commands.RoleConverter()
-        r = await converter.convert(ctx, role)
+        categories = self.config.sections()
+        view = category_select.CategorySelect(categories=categories)
 
-        await ctx.respond(f"You chose the {r.name} role")
+        await ctx.respond(
+            f"You chose role: {role.name}. Choose a category:",
+            view=view
+        )
 
 
 def setup(bot):

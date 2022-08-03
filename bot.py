@@ -14,6 +14,9 @@ class PyCordBot(discord.Bot):
         self.config = configparser.ConfigParser()
         self.config.read('config.ini')
 
+        # Set the bot's token
+        self.token = self.config['BOT']['token']
+
     # Emits when the bot is ready
     async def on_ready(self):
         """Emits when the bot is ready"""
