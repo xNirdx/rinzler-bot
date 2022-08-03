@@ -2,6 +2,8 @@
 import discord
 import configparser
 
+from db import DB
+
 
 # Our own subclass of the discord.Bot class to implement our own features
 class PyCordBot(discord.Bot):
@@ -16,6 +18,8 @@ class PyCordBot(discord.Bot):
 
         # Set the bot's token
         self.token = self.config['BOT']['token']
+
+        self.database = DB()
 
     # Emits when the bot is ready
     async def on_ready(self):

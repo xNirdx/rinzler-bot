@@ -16,8 +16,17 @@ class DB:
 
         self.cursor = self.database.cursor()
 
-    async def add_role(self):
-        sql = "INSERT INTO roles VALUES (69, 420)"
+    async def add_role(self, role, group_id):
+        sql = f"INSERT INTO roles VALUES ({role.id}, {group_id})"
 
         self.cursor.execute(sql)
         self.database.commit()
+
+    def get_role_groups(self):
+        sql = "SELECT * FROM role_groups"
+
+        self.cursor.execute(sql)
+
+        role_groups = self.cursor.fetchall()
+
+        return role_groups

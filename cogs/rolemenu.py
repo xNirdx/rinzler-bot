@@ -21,11 +21,10 @@ class RoleMenu(discord.ext.commands.Cog):
     async def add_role(self, ctx, role: discord.Option(discord.Role)):
         """Say hello!"""
 
-        categories = self.config.sections()
-        view = category_select.CategorySelect(categories=categories)
+        view = category_select.CategorySelect(bot=self.bot, role=role)
 
         await ctx.respond(
-            f"You chose role: {role.name}. Choose a category:",
+            f"Please select a role group for {role.mention}:",
             view=view
         )
 
